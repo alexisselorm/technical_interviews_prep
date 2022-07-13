@@ -6,9 +6,20 @@ class Graph:
 
     def addEdge(self, vertex, edge):
         self.gdict[vertex].append(edge)
-        
-    def removeEdge(self,vertex,edge):
-        self.gdict[vertex].remove(edge)
+
+    def removeEdge(self, vertex, edge):
+        if edge in self.gdict[vertex]:
+            self.gdict[vertex].remove(edge)
+            return "edge removed"
+        return "No connection between edge and vertex"
+
+    def removeVertex(self, vertex):
+        if vertex in self.gdict.keys():
+            for edges in self.gdict[vertex]:
+                self.gdict[edges].remove(vertex)
+            del self.gdict[vertex]
+            return True
+        return False
 
 
 customGraph = {"a": ["b", "c"],
@@ -20,5 +31,6 @@ customGraph = {"a": ["b", "c"],
                }
 graph = Graph(customGraph)
 graph.addEdge("e", "c")
-graph.removeEdge("e", "f")
-print(graph.gdict["e"])
+print(graph.removeEdge("e", "a"))
+print(graph.removeVertex("f"))
+print(graph.gdict)
